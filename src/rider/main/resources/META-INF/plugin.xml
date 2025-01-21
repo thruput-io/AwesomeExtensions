@@ -1,0 +1,22 @@
+<idea-plugin require-restart="true">
+  <id>com.threemonkeys.awesomeextensions</id>
+  <name>AwesomeExtensions</name>
+  <version>1.0.0</version>
+  <vendor url="https://project-url">Author</vendor>
+  <idea-version since-build="2024.1" until-build="2024.3" />
+  <depends>com.intellij.modules.rider</depends>
+
+  <description>
+<![CDATA[
+<p>Sample description</p>
+]]>
+  </description>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <contextAction implementationClass="GenerateExtensionMethodAction"
+                   text="Generate Extension Method"
+                   description="Generates an extension method for the selected class."
+                   group="CSharp"/>
+  </extensions>
+
+</idea-plugin>
