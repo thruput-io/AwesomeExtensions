@@ -21,7 +21,7 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         var methodName = reference.GetName();
         
         var referenceExpression = reference.GetTreeNode() as IReferenceExpression;
-        var targetTypeName = referenceExpression.QualifierExpression.GetExpressionType().GetPresentableName(CSharpLanguage.Instance, TypePresentationStyle.Default);
+        var targetTypeName = referenceExpression.QualifierExpression.Type().GetPresentableName(CSharpLanguage.Instance, new TypePresentationStyle { Options = 0});
 
         var statement = factory.CreateStatement("throw new NotImplementedException();");
         var methodBody = factory.CreateEmptyBlock();
