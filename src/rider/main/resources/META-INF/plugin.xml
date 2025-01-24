@@ -1,21 +1,21 @@
 <idea-plugin require-restart="true">
   <id>com.threemonkeys.awesomeextensions</id>
   <name>AwesomeExtensions</name>
-  <version>0.0.2</version>
-  <vendor url="https://project-url">Author</vendor>
+  <version>0.0.3</version>
+  <vendor url="https://project-url">ThreeMonkeysLabs</vendor>
   <idea-version since-build="2024.1" until-build="2024.3" />
   <depends>com.intellij.modules.rider</depends>
 
   <description>
 <![CDATA[
-<p>Sample description</p>
+<p>Adds the missing extensions to Rider</p>
 ]]>
   </description>
 
   <extensions defaultExtensionNs="com.intellij">
     <contextAction implementationClass="GenerateExtensionMethodAction"
                    text="Generate Extension Method"
-                   description="Generates an extension method for the selected class."
+                   description="Generates an extension method for the selected type."
                    group="CSharp"/>
   </extensions>
 

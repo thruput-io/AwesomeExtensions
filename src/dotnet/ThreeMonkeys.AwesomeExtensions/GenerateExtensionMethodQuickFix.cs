@@ -21,24 +21,26 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         var methodName = reference.GetName();
         
         var referenceExpression = reference.GetTreeNode() as IReferenceExpression;
-        var targetTypeName = referenceExpression.QualifierExpression.Type().GetPresentableName(CSharpLanguage.Instance, new TypePresentationStyle { Options = 0});
+        var targetTypeNameWithDefaultStyle = referenceExpression.QualifierExpression.GetExpressionType().GetPresentableName(CSharpLanguage.Instance, TypePresentationStyle.Default);
+        var targetTypeNameWithNoStyle = referenceExpression.QualifierExpression.Type().GetPresentableName(CSharpLanguage.Instance, new TypePresentationStyle { Options = 0 });
 
         var statement = factory.CreateStatement("throw new NotImplementedException();");
         var methodBody = factory.CreateEmptyBlock();
         methodBody.AddStatementBefore(statement, null);
         
         var methodDeclaration = factory
-            .CreateTypeMemberDeclaration($"public static void {methodName}(this {targetTypeName} self)") as IMethodDeclaration;
+            .CreateTypeMemberDeclaration($"public static void {methodName}(this {targetTypeNameWithDefaultStyle} self)") as IMethodDeclaration;
         methodDeclaration.SetBody(methodBody);
 
         var classDeclaration = factory
-            .CreateTypeMemberDeclaration($"public static class {targetTypeName}Extensions") as IClassDeclaration;
+            .CreateTypeMemberDeclaration($"public static class {targetTypeNameWithNoStyle}Extensions") as IClassDeclaration;
         
         classDeclaration.AddClassMemberDeclaration(methodDeclaration);
         
         var file = reference.GetTreeNode().GetContainingFile() as ICSharpFile;
+        var namespaceDeclaration = file.Children<ICSharpNamespaceDeclaration>().FirstNotNull();
         
-        file.AddTypeDeclarationAfter(classDeclaration, file.TypeDeclarations.LastOrDefault());
+        namespaceDeclaration.AddTypeDeclarationAfter(classDeclaration, file.TypeDeclarations.LastOrDefault());
         
         return null;
     }
