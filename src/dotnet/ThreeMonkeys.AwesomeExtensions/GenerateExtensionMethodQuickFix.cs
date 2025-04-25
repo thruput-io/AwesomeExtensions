@@ -1,6 +1,8 @@
 using System;
+using System.Windows.Forms.VisualStyles;
 using JetBrains.Application.Progress;
 using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -9,6 +11,7 @@ using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
+using JetBrains.Util.Text;
 
 namespace ThreeMonkeys.AwesomeExtensions;
 
@@ -27,7 +30,6 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         var statement = factory.CreateStatement("throw new NotImplementedException();");
         var methodBody = factory.CreateEmptyBlock();
         methodBody.AddStatementBefore(statement, null);
-        
         var methodDeclaration = factory
             .CreateTypeMemberDeclaration($"public static void {methodName}(this {targetTypeNameWithDefaultStyle} self)") as IMethodDeclaration;
         methodDeclaration.SetBody(methodBody);
@@ -41,7 +43,8 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         var namespaceDeclaration = file.Children<ICSharpNamespaceDeclaration>().FirstNotNull();
         
         namespaceDeclaration.AddTypeDeclarationAfter(classDeclaration, file.TypeDeclarations.LastOrDefault());
-        
+
+                
         return null;
     }
 
