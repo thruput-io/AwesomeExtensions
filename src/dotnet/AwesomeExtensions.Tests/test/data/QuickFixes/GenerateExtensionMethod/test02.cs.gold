@@ -1,0 +1,21 @@
+using System;
+
+public class TargetClass
+{
+}
+
+public class Usage
+{
+    public void M(TargetClass target)
+    {
+        target.ExtensionMethod();
+    }
+}
+
+public static class TargetClassExtensions
+{
+    public static void ExtensionMethod(this TargetClass self)
+    {
+        throw new NotImplementedException();
+    }
+}
