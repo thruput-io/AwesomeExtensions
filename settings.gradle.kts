@@ -17,6 +17,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = "ThreeMonkeys.AwesomeExtensions"
+rootProject.name = "AwesomeExtensions"
 
 include(":protocol")

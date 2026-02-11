@@ -3,18 +3,17 @@
   <PropertyGroup>
     <!-- See https://www.nuget.org/packages/JetBrains.ReSharper.SDK -->
     <!-- Keep in sync with ProductVersion in gradle.properties -->
-    <SdkVersion>2025.3.0</SdkVersion>
+    <SdkVersion>2025.3</SdkVersion>
 
     <Title>AwesomeExtensions</Title>
-    <Description>Awesome Rider extensions</Description>
+    <Description>Awesome extensions, like Generate extension method</Description>
 
     <Authors>Thruput</Authors>
     <Copyright>Copyright $([System.DateTime]::Now.Year) Maintainers of AwesomeExtensions</Copyright>
     <PackageTags>resharper plugin</PackageTags>
   
-    <PackageProjectUrl></PackageProjectUrl>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageProjectUrl>https://github.com/thruput-io/AwesomeExtensions</PackageProjectUrl>
+    <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
   </PropertyGroup>
 
 </Project>

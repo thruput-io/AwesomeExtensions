@@ -7,4 +7,4 @@
 ```bash
 ./gradlew buildPlugin
 ```
-A zip file will be created in the `output` folder
+A zip file will be created in the `build/distributions` folder

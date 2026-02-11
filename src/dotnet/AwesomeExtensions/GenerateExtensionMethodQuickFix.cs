@@ -62,7 +62,7 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         return null;
     }
 
-    public override string Text => "Generate an extension method";
+    public override string Text => "Generate extension method";
 
     public override bool IsAvailable(IUserDataHolder cache)
     {
