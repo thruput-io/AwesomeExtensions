@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
+    <RootNamespace>ThreeMonkeys.AwesomeExtensions.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ThreeMonkeys.AwesomeExtensions\ThreeMonkeys.AwesomeExtensions.csproj" />
+    <ProjectReference Include="..\AwesomeExtensions\AwesomeExtensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

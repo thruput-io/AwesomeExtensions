@@ -5,7 +5,7 @@
     <IsPackable>True</IsPackable>
     <DefineConstants>$(DefineConstants);RESHARPER</DefineConstants>
     <IncludeBuildOutput>false</IncludeBuildOutput>
-    <RootNamespace>ThreeMonkeys.AwesomeExtensions</RootNamespace>
+    <RootNamespace>AwesomeExtensions</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
