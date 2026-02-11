@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net472</TargetFramework>
     <IsPackable>false</IsPackable>
-    <RootNamespace>ThreeMonkeys.AwesomeExtensions.Tests</RootNamespace>
+    <RootNamespace>AwesomeExtensions.Tests</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
