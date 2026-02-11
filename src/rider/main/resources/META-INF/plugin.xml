@@ -9,6 +9,9 @@
   <description>
 <![CDATA[
 <p>Adds the missing extensions to Rider</p>
+<ul>
+<li>Generate Extension Method</li>
+</ul>
 ]]>
   </description>
 
