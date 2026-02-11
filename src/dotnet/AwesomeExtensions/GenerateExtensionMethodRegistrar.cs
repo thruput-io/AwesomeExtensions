@@ -6,7 +6,7 @@ using JetBrains.ReSharper.Daemon.CSharp.Errors;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.Util;
 
-namespace ThreeMonkeys.AwesomeExtensions;
+namespace AwesomeExtensions;
 
 [ShellComponent]
 internal class GenerateExtensionMethodRegistrar : IQuickFixesProvider

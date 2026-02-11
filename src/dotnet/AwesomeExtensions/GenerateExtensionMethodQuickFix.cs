@@ -1,8 +1,6 @@
 using System;
-using System.Windows.Forms.VisualStyles;
 using JetBrains.Application.Progress;
 using JetBrains.ProjectModel;
-using JetBrains.ReSharper.Feature.Services.Navigation.NavigationExtensions;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -11,9 +9,8 @@ using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
-using JetBrains.Util.Text;
 
-namespace ThreeMonkeys.AwesomeExtensions;
+namespace AwesomeExtensions;
 
 [QuickFix]
 public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBase
