@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
+using JetBrains.Annotations;
 using JetBrains.Application.Progress;
+using JetBrains.Application.BuildScript.Application.Zones;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.ReSharper.Psi;
@@ -13,9 +15,16 @@ using JetBrains.Util;
 
 namespace AwesomeExtensions;
 
+[ZoneMarker]
+public class ZoneMarker : IRequire<IAwesomeExtensionsZone>;
+
 [QuickFix]
 public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBase
 {
+    
+    [UsedImplicitly]
+    public const string Id = "GenerateExtensionMethodQuickFix";
+    
     protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
     {
         var treeNode = reference.GetTreeNode();

@@ -1,5 +1,4 @@
 ﻿using System.Threading;
-using AwesomeExtensions;
 using JetBrains.Application.BuildScript.Application.Zones;
 using JetBrains.ReSharper.Feature.Services;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -10,7 +9,7 @@ using NUnit.Framework;
 
 [assembly: Apartment(ApartmentState.STA)]
 
-namespace ThreeMonkeys.AwesomeExtensions.Tests
+namespace AwesomeExtensions.Tests
 {
     [ZoneDefinition]
     public class AwesomeExtensionsTestEnvironmentZone : ITestsEnvZone, IRequire<PsiFeatureTestZone>, IRequire<IAwesomeExtensionsZone> { }
