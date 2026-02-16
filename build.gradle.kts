@@ -1,7 +1,10 @@
 import com.jetbrains.plugin.structure.base.utils.isFile
 import groovy.ant.FileNameFinder
 import org.apache.tools.ant.taskdefs.condition.Os
+import org.gradle.kotlin.dsl.support.serviceOf
+import org.gradle.process.ExecOperations
 import org.jetbrains.intellij.platform.gradle.Constants
+import javax.inject.Inject
 import java.io.ByteArrayOutputStream
 
 plugins {
@@ -59,13 +62,14 @@ tasks.compileKotlin {
 }
 
 val setBuildTool by tasks.registering {
+    val execOperations = project.serviceOf<ExecOperations>()
     doLast {
         extra["executable"] = "dotnet"
         var args = mutableListOf("msbuild")
 
         if (isWindows) {
             val stdout = ByteArrayOutputStream()
-            exec {
+            execOperations.exec {
                 executable("${rootDir}\\tools\\vswhere.exe")
                 args("-latest", "-property", "installationPath", "-products", "*")
                 standardOutput = stdout
@@ -88,12 +92,14 @@ val setBuildTool by tasks.registering {
 }
 
 val compileDotNet by tasks.registering {
+    val execOperations = project.serviceOf<ExecOperations>()
     dependsOn(setBuildTool)
     doLast {
         val executable: String by setBuildTool.get().extra
+        @Suppress("UNCHECKED_CAST")
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Restore;Rebuild")
-        exec {
+        execOperations.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -102,8 +108,9 @@ val compileDotNet by tasks.registering {
 }
 
 val testDotNet by tasks.registering {
+    val execOperations = project.serviceOf<ExecOperations>()
     doLast {
-        exec {
+        execOperations.exec {
             executable("dotnet")
             args("test","${DotnetSolution}","--logger","GitHubActions")
             workingDir(rootDir)
@@ -112,9 +119,10 @@ val testDotNet by tasks.registering {
 }
 
 tasks.buildPlugin {
+    val execOperations = project.serviceOf<ExecOperations>()
     doLast {
         copy {
-            from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
+            from("${layout.buildDirectory.get()}/distributions/${rootProject.name}-${version}.zip")
             into("${rootDir}/output")
         }
 
@@ -126,12 +134,13 @@ tasks.buildPlugin {
         }.take(1).joinToString()
 
         val executable: String by setBuildTool.get().extra
+        @Suppress("UNCHECKED_CAST")
         val arguments = (setBuildTool.get().extra["args"] as List<String>).toMutableList()
         arguments.add("/t:Pack")
         arguments.add("/p:PackageOutputPath=${rootDir}/output")
         arguments.add("/p:PackageReleaseNotes=${changeNotes}")
         arguments.add("/p:PackageVersion=${version}")
-        exec {
+        execOperations.exec {
             executable(executable)
             args(arguments)
             workingDir(rootDir)
@@ -141,10 +150,10 @@ tasks.buildPlugin {
 
 dependencies {
     intellijPlatform {
-        rider(ProductVersion, useInstaller=false)
+        rider(ProductVersion) {
+            useInstaller = false
+        }
         jetbrainsRuntime()
-        instrumentationTools()
-
         // TODO: add plugins
         // bundledPlugin("uml")
         // bundledPlugin("com.jetbrains.ChooseRuntime:1.0.9")
@@ -180,7 +189,7 @@ tasks.patchPluginXml {
 tasks.prepareSandbox {
     dependsOn(compileDotNet)
 
-    val outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    val outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}/${BuildConfiguration}"
     val dllFiles = listOf(
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
@@ -202,12 +211,13 @@ tasks.prepareSandbox {
 }
 
 tasks.publishPlugin {
+    val execOperations = project.serviceOf<ExecOperations>()
     dependsOn(testDotNet)
     dependsOn(tasks.buildPlugin)
     token.set("${PublishToken}")
 
     doLast {
-        exec {
+        execOperations.exec {
             executable("dotnet")
             args("nuget","push","output/${DotnetPluginId}.${version}.nupkg","--api-key","${PublishToken}","--source","https://plugins.jetbrains.com")
             workingDir(rootDir)
