@@ -12,7 +12,6 @@ using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
-using JetBrains.Util.Logging;
 
 namespace AwesomeExtensions;
 
@@ -76,6 +75,10 @@ public class GenerateExtensionMethodQuickFix(NotResolvedError highlighting) : Qu
 
     public override bool IsAvailable(IUserDataHolder cache)
     {
-        return _reference.IsValid();
+        if (_reference == null || !_reference.IsValid())
+            return false;
+
+        var treeNode = _reference.GetTreeNode();
+        return treeNode is IReferenceExpression { QualifierExpression: not null };
     }
 }
