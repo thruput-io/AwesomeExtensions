@@ -11,12 +11,12 @@ public class GenerateExtensionMethodQuickFixTest : QuickFixTestBase<GenerateExte
     [Test]
     public void Test01()
     {
-        DoTestFiles("test01.cs");
+        DoTestSolution("test01.cs");
     }
 
     [Test]
     public void Test02()
     {
-        DoTestFiles("test02.cs");
+        DoTestSolution("test02.cs");
     }
 }
