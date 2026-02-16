@@ -12,11 +12,11 @@ using NUnit.Framework;
 namespace AwesomeExtensions.Tests
 {
     [ZoneDefinition]
-    public class AwesomeExtensionsTestEnvironmentZone : ITestsEnvZone, IRequire<PsiFeatureTestZone>, IRequire<IAwesomeExtensionsZone> { }
+    public class AwesomeExtensionsTestEnvironmentZone : ITestsEnvZone, IRequire<PsiFeatureTestZone>;
 
     [ZoneMarker]
-    public class ZoneMarker : IRequire<ICodeEditingZone>, IRequire<ILanguageCSharpZone>, IRequire<AwesomeExtensionsTestEnvironmentZone> { }
+    public class ZoneMarker : IRequire<ICodeEditingZone>, IRequire<ILanguageCSharpZone>, IRequire<AwesomeExtensionsTestEnvironmentZone>;
 
     [SetUpFixture]
-    public class AwesomeExtensionsTestsAssembly : ExtensionTestEnvironmentAssembly<AwesomeExtensionsTestEnvironmentZone> { }
+    public class AwesomeExtensionsTestsAssembly : ExtensionTestEnvironmentAssembly<AwesomeExtensionsTestEnvironmentZone>;
 }

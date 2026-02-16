@@ -1,4 +1,4 @@
-<idea-plugin require-restart="true">
+<idea-plugin>
   <id>se.thruput.awesomeextensions</id>
   <name>AwesomeExtensions</name>
   <version>1.0.0</version>
@@ -16,6 +16,11 @@
   </description>
 
   <extensions defaultExtensionNs="com.intellij">
+    <rider.backend.module id="AwesomeExtensions"
+                          title="AwesomeExtensions"
+                          description="AwesomeExtensions"
+                          assembly="AwesomeExtensions.dll" />
+    <rider.model.extensionRoot implementation="model.rider.AwesomeExtensionsRoot" />
   </extensions>
 
 </idea-plugin>

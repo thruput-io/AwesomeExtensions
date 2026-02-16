@@ -1,2 +1,14 @@
 [
+  {
+    "id": "se.thruput.awesomeextensions",
+    "title": "AwesomeExtensions backend",
+    "description": "Rider backend for AwesomeExtensions plugin",
+    "dependencies": [],
+    "modules": [
+      {
+        "id": "AwesomeExtensions",
+        "assembly": "AwesomeExtensions.dll"
+      }
+    ]
+  }
 ]

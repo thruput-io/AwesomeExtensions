@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using JetBrains.Annotations;
 using JetBrains.Application.Progress;
-using JetBrains.Application.BuildScript.Application.Zones;
 using JetBrains.ProjectModel;
+using JetBrains.ReSharper.Daemon.CSharp.Errors;
 using JetBrains.ReSharper.Feature.Services.QuickFixes;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.CSharp;
@@ -12,16 +12,15 @@ using JetBrains.ReSharper.Psi.Resolve;
 using JetBrains.ReSharper.Psi.Tree;
 using JetBrains.TextControl;
 using JetBrains.Util;
+using JetBrains.Util.Logging;
 
 namespace AwesomeExtensions;
 
-[ZoneMarker]
-public class ZoneMarker : IRequire<IAwesomeExtensionsZone>;
-
 [QuickFix]
-public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBase
+public class GenerateExtensionMethodQuickFix(NotResolvedError highlighting) : QuickFixBase
 {
-    
+    private readonly IReference _reference = highlighting.Reference;
+
     [UsedImplicitly]
     public const string Id = "GenerateExtensionMethodQuickFix";
     
@@ -29,9 +28,9 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
         ISolution solution,
         IProgressIndicator progress)
     {
-        var treeNode = reference.GetTreeNode();
+        var treeNode = _reference.GetTreeNode();
         var factory = CSharpElementFactory.GetInstance(treeNode);
-        var methodName = reference.GetName();
+        var methodName = _reference.GetName();
 
         if (treeNode is not IReferenceExpression referenceExpression)
             return null;
@@ -77,6 +76,6 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
 
     public override bool IsAvailable(IUserDataHolder cache)
     {
-        return reference.IsValid();
+        return _reference.IsValid();
     }
 }
