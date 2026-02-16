@@ -149,6 +149,7 @@ tasks.buildPlugin {
 }
 
 dependencies {
+    implementation(project(":protocol"))
     intellijPlatform {
         rider(ProductVersion) {
             useInstaller = false

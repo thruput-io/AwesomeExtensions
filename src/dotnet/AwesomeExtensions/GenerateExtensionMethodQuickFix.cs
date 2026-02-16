@@ -25,7 +25,9 @@ public class GenerateExtensionMethodQuickFix(IReference reference) : QuickFixBas
     [UsedImplicitly]
     public const string Id = "GenerateExtensionMethodQuickFix";
     
-    protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
+    protected override Action<ITextControl> ExecutePsiTransaction(
+        ISolution solution,
+        IProgressIndicator progress)
     {
         var treeNode = reference.GetTreeNode();
         var factory = CSharpElementFactory.GetInstance(treeNode);

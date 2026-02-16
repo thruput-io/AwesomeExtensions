@@ -16,10 +16,6 @@
   </description>
 
   <extensions defaultExtensionNs="com.intellij">
-    <contextAction implementationClass="GenerateExtensionMethodAction"
-                   text="Generate Extension Method"
-                   description="Generates an extension method for the selected type."
-                   group="CSharp"/>
   </extensions>
 
 </idea-plugin>
